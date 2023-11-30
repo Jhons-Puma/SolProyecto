@@ -1,0 +1,144 @@
+﻿@model ConfirmarCarritoCompraModel;
+@{
+    ViewData["Title"] = "confirmarCompra";
+}
+
+<h1>En hora buena!!</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Producto
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Precio
+            </th>
+
+            <th>
+                Cantidad
+            </th>
+
+            <th>
+                &nbsp;
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TemporalProducts)
+        {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="@item.ImageURL" style="height:60px; width:60px;" alt="Card image cap">
+                </td>
+                <td>
+                    @item.Nombre
+                </td>
+                <td>
+                    @item.Precio
+                </td>
+                <td>
+                    @item.Cantidad
+                </td>
+                <td>
+                    <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" asp-action="SaveShoppingCard">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><i class="fa-solid fa-circle-info"></i> Información del Cliente</h5>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>DNI:</label>
+                            <input asp-for="numeroDocumento" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label>Nombres:</label>
+                            <input asp-for="nombre" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label>Apellido:</label>
+                            <input asp-for="apellido" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label>Email:</label>
+                            <input asp-for="correo" type="text" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label>Password:</label>
+                            <input asp-for="clave" type="password" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="row">
+                <h5><i class="fa-solid fa-credit-card"></i> Información del pago</h5>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label>Tarjeta de Credito:</label>
+                    <input asp-for="tarjetaCredito" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-8">
+                    <label>Fecha expiración:</label>
+                    <input asp-for="fechaVenCredito" type="text" class="form-control" placeholder="MM/YY" />
+                </div>
+                <div class="col-md-4">
+                    <label>CVV:</label>
+                    <input asp-for="CVV" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label>Correo:</label>
+                    <input asp-for="email" type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row m-5">
+        <div class="col-md-12">
+            <center>
+
+                <button type="submit" class="btn btn-success">Confirmar compra</button>
+
+            </center>
+        </div>
+    </div>
+
+</form>
+

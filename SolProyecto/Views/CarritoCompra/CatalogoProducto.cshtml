@@ -1,0 +1,35 @@
+﻿@model List<ProductoCatalogoModel>;
+@{
+    ViewData["Title"] = "Catalogo de Productos";
+}
+
+<div class="card bg-dark mt-3 ">
+    <img class="card-img" src="../../img/bannerBarraled.png" alt="Card image">
+</div>
+
+<h1 class="text-center mt-3 display-3 font-weight-bold">FAROS LED</h1>.
+
+
+<div class="row mt-5">
+    @foreach (var producto in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mt-2">
+                <center>
+                    <img class="card-img-top" style="width: 130px; height:130px;" src="@producto.imgURL" alt="@producto.marca">
+                </center>
+                <div class="card-body">
+                    <h5 class="card-title limiter">@producto.marca</h5>
+                    <p class="card-text log-limiter">@producto.descripcipn</p>
+                    <a href="#" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Añadir</a>
+                    <a asp-action="DetalleCatalogo" asp-controller="CarritoCompra"
+                       asp-route-id="@producto.ProductoId" class="btn btn-success">
+                        <i class="fa-solid fa-magnifying-glass"></i> Detalles
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>

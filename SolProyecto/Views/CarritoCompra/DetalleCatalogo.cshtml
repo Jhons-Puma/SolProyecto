@@ -1,0 +1,107 @@
+﻿@model ProductoCatalogoModel;
+
+@{
+    ViewData["Title"] = "ProductCategoryDetail";
+}
+
+<h1 class=" lead text-center mt-3">Detalles del producto</h1>
+
+
+<div class="row mt-5">
+
+    <input type="hidden" value="@Model.ProductoId" id="hdnProductoId" />
+
+    <div class="col-md-4">
+        <img class="card-img-top" style="width:250px; height:200px" src="@Model.imgURL" alt="@Model.marca">
+    </div>
+
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@Model.marca</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <i class="fa-solid fa-money-bill-1 text-success" style="font-size:50px;"></i>
+                    <span class="text-secondary" style="font-size:40px; text-decoration: line-through;">@Model.precioInicial</span>
+                    <span class="text-success" style="font-size:60px;">@Model.precioFinal</span>
+                    <span class="text-danger font-weight-bold">- @Model.descuento %</span>
+                </p>
+
+                <p>
+                    @if (Model.envio.HasValue)
+                    {
+                        <span><i class="@((Model.envio.Value)? "text-success fa-solid fa-circle-check" : "text-danger fa-solid fa-circle-xmark") "></i> Envio Gratis </span>
+                    }
+                </p>
+
+                <p>
+                    @if (Model.delibery.HasValue)
+                    {
+                        <span><i class="@((Model.delibery.Value)? "text-success fa-solid fa-circle-check" : "text-danger fa-solid fa-circle-xmark") "></i> Delivery Permitido </span>
+                    }
+                </p>
+
+                <p>
+                    @if (Model.retiroTienda.HasValue)
+                    {
+                        <span><i class="@((Model.retiroTienda.Value)? "text-success fa-solid fa-circle-check" : "text-danger fa-solid fa-circle-xmark") "></i> Recojo en Tienda </span>
+                    }
+                </p>
+
+                <p>
+                    <b>Descripción:</b> @Model.descripcipn
+                </p>
+
+                <button class="btn btn-danger"><i class="fa-solid fa-minus"></i></button>
+
+                <input class="form-control" id="txtQuantity" type="text" style="width:50px;" />
+
+                <button class="btn btn-success"><i class="fa-solid fa-plus"></i></button>
+                </p>
+
+                <button id="btnAnadir" class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Añadir</button>
+                <a asp-controller="CarritoCompra" asp-action="ConfirmaCompra" class="btn btn-primary"> Confirmar Compra</a>
+                <a asp-controller="CarritoCompra" asp-action="CatalogoProducto" class="btn btn-secondary"> Volver</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnAnadir").click(() => { addTemporalProduct(); });
+        });
+
+        const addTemporalProduct = () => {
+            const quantity = $("#txtQuantity").val();
+            const productId = $("#hdnProductoId").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddTemporalProduct","CarritoCompra")',
+                data: {
+                    "Id": productId,
+                    "Cantidad": quantity
+                },
+                success: () => {
+                    console.log("OK")
+                },
+                error: (ex, det) => {
+                    console.log("ERROR  =>", ex, det);
+                }
+            
+            
+            });
+
+        }
+    </script>
+}
+
+
